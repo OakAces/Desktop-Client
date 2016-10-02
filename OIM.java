@@ -83,6 +83,8 @@ public class OIM extends JFrame
         GBC.gridy = 3;
         contents.add(chatInput, GBC);
         
+        /* // pressing enter sends the msg to the chat
+            // This runs but crashes without the server code
         chatInput.addActionListener(new ActionListener() {
         
             public void actionPerformed(ActionEvent enter){
@@ -90,6 +92,7 @@ public class OIM extends JFrame
                 chatInput.setText("");
             }
         });
+        */
                
         channelListModel = new DefaultListModel();
         channelListModel.addElement("Channel 1");
@@ -116,6 +119,15 @@ public class OIM extends JFrame
         GBC.gridy = 3;
         contents.add(logoutButton, GBC);
         
+        /*
+        logoutButton.addActionListener(new ActionListener() {
+        
+            public void actionPerformed(ActionEvent send){
+                socket.close();
+            }
+        });
+        */
+        
         sendButton = new JButton("Send");
         sendButton.setBackground(Color.BLACK);
         sendButton.setForeground(Color.yellow);
@@ -125,6 +137,8 @@ public class OIM extends JFrame
         GBC.gridy = 3;
         contents.add(sendButton, GBC);
         
+        /* //Send button sends the msg into the chat
+            // Runs but crashes without the server code
         sendButton.addActionListener(new ActionListener() {
         
             public void actionPerformed(ActionEvent send){
@@ -132,6 +146,7 @@ public class OIM extends JFrame
                 chatInput.setText("");
             }
         });
+        */
         
         onLineModel = new DefaultListModel();
         onLine = new JList(onLineModel);
@@ -151,8 +166,8 @@ public class OIM extends JFrame
         setVisible(true);
     }
     
-        
-    private boolean run() {
+        //Runs but doesn't work without the server
+    /*private boolean run() {
         
         try {
             Socket socket = new Socket("host", 9090);
@@ -179,10 +194,10 @@ public class OIM extends JFrame
                 chatArea.append(line.substring(WIDTH)+ "\n");
             }
             catch(IOException exIO){
-                chatArea.append("Error reading from the server: " + exIO);
+                chatArea.append("Error reading from the buffer: " + exIO);
             }
         }
-    }
+    }*/
     
     
     public static void main(String[] args) 
