@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import java.net.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class OIM extends JFrame
@@ -27,7 +29,7 @@ public class OIM extends JFrame
     
     public OIM()
     {
-        super("Oakland Instant Messager");
+        super("AceChat");
         contents = getContentPane();
         contents.setLayout(new GridBagLayout());
         
@@ -119,14 +121,18 @@ public class OIM extends JFrame
         GBC.gridy = 3;
         contents.add(logoutButton, GBC);
         
-        /*
+        
         logoutButton.addActionListener(new ActionListener() {
         
             public void actionPerformed(ActionEvent send){
-                socket.close();
+                try {
+                    socket.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(OIM.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
-        */
+        
         
         sendButton = new JButton("Send");
         sendButton.setBackground(Color.BLACK);
@@ -137,7 +143,7 @@ public class OIM extends JFrame
         GBC.gridy = 3;
         contents.add(sendButton, GBC);
         
-        /* //Send button sends the msg into the chat
+         //Send button sends the msg into the chat
             // Runs but crashes without the server code
         sendButton.addActionListener(new ActionListener() {
         
@@ -146,7 +152,7 @@ public class OIM extends JFrame
                 chatInput.setText("");
             }
         });
-        */
+        
         
         onLineModel = new DefaultListModel();
         onLine = new JList(onLineModel);
@@ -167,16 +173,16 @@ public class OIM extends JFrame
     }
     
         //Runs but doesn't work without the server
-    /*private boolean run() {
+    private boolean run() {
         
         try {
-            Socket socket = new Socket("host", 9090);
+            socket = new Socket("localhost", 9090);
         } 
         catch ( Exception exc){
             chatArea.append("Error connecting to the server." + exc);
         }
         
-        chatArea.append("Connected to " + socket.getInetAddress() + ":" + socket.getPort());
+        //chatArea.append("Connected to " + socket.getInetAddress() + ":" + socket.getPort());
         
         try{
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -197,14 +203,14 @@ public class OIM extends JFrame
                 chatArea.append("Error reading from the buffer: " + exIO);
             }
         }
-    }*/
+    }
     
     
     public static void main(String[] args) 
     {
         OIM Gui = new OIM();
         Gui.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-        //Gui.run();
+        Gui.run();
     }
     
 }
